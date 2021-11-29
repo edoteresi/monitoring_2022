@@ -1,0 +1,24 @@
+setwd("C:/Users/Utente/Documents/LAB") #right working directory
+library(raster)
+
+#Rcode for estimating energy in ecosystem
+# install.packages("raster")
+# install.packages("rgdal")
+
+library(raster)
+library(rgdal)
+
+#to iport data in R --> brick function with arrow to assign a name
+brick("defor1_.jpg") #image 1992
+brick("defor2_.jpg") #image 2006
+
+l1992 <- brick("defor1_.jpg")
+
+# Bands: defor1_.1, defor1_.2, defor1_.3 
+# plotRGB
+plotRGB(l1992, r=1, g=2, b=3, stretch="Lin")
+
+# defor1_.1 = NIR
+# defor1_.2 = red
+# defor1_.3 = green
+
