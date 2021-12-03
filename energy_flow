@@ -12,13 +12,27 @@ library(rgdal)
 brick("defor1_.jpg") #image 1992
 brick("defor2_.jpg") #image 2006
 
-l1992 <- brick("defor1_.jpg")
+l1992 <- brick("defor1_.jpg")    # <- to assign names to the images charged
+l2006 <- brick("defor2_.jpg")
+
 
 # Bands: defor1_.1, defor1_.2, defor1_.3 
 # plotRGB
-plotRGB(l1992, r=1, g=2, b=3, stretch="Lin")
+plotRGB(l1992, r=1, g=2, b=3, stretch="Lin")       #1992
+
+plotRGB (l2006, r=1, g=2, b=3, stretch="lin")       #2006
 
 # defor1_.1 = NIR
 # defor1_.2 = red
 # defor1_.3 = green
 
+#multiframe to plot the images together
+par(mfrow=c(2,1))     # the first number is the number of rows in the multiframe, while the second one is the mnumber of columns 
+plotRGB(l1992, r=1, g=2, b=3, stretch="Lin")
+plotRGB(l2006, r=1, g=2, b=3, stretch="Lin")
+
+#now we want to compute the DVI= different vegetation index = REFLECTION IN NIR - R
+dev.off()    #to close the previous plottings!!
+DVI1992 <- l1992$defor1_.1 - l1992$defor1_.2
+cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)  #specifying_color
+plot(DVI1992,col=cl)
