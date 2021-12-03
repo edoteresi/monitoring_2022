@@ -32,7 +32,21 @@ plotRGB(l1992, r=1, g=2, b=3, stretch="Lin")
 plotRGB(l2006, r=1, g=2, b=3, stretch="Lin")
 
 #now we want to compute the DVI= different vegetation index = REFLECTION IN NIR - R
+#CALCULATE THE ECOSYSTEM ENERGY IN 1992
 dev.off()    #to close the previous plottings!!
 DVI1992 <- l1992$defor1_.1 - l1992$defor1_.2
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)  #specifying_color
 plot(DVI1992,col=cl)
+
+
+#CALCULATE THE ECOSYSTEM ENERGY IN 2006
+
+dev.off()    #to close the previous plottings!!
+DVI2006 <- l2006$defor2_.1 - l2006$defor2_.2
+cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100)  #specifying_color
+plot(DVI2006,col=cl)
+
+#DIFFERENCING TWO IMAGES OF ENERGY IN DIFFERENT TIMES
+DVIdif <- DVI1992 - DVI2006
+cld <- colorRampPalette(c('blue','white','red'))(100)  #specifying_color
+plot(DVIdif,col=cld)
