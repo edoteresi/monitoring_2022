@@ -50,3 +50,15 @@ plot(DVI2006,col=cl)
 DVIdif <- DVI1992 - DVI2006
 cld <- colorRampPalette(c('blue','white','red'))(100)  #specifying_color
 plot(DVIdif,col=cld)
+
+
+°#FINAL PLOT, original images, DVIs, final DVI difference
+
+#multiframe to plot the images together
+par(mfrow=c(3,2))     # the first number is the number of rows in the multiframe, while the second one is the mnumber of columns 
+plotRGB(l1992, r=1, g=2, b=3, stretch="Lin")
+plotRGB(l2006, r=1, g=2, b=3, stretch="Lin")
+plot(DVI1992,col=cl)
+plot(DVI2006,col=cl)
+plot(DVIdif,col=cld)
+
