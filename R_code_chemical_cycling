@@ -1,3 +1,17 @@
 #R code chemical cycling, time series of chemicals during lock down
 
 setwd("C:/Users/Utente/Desktop/LAB/EN")
+
+library(raster)
+
+# plot the NO2 values of January 29020 by the cl palette
+en01 <- raster("EN_0001.png")
+plot(en01, col=cl)
+
+# Exercise: import the end of March NO2 and plot it
+en13 <- raster("EN_0013.png")
+plot(en13, col=cl)
+
+par(mfrow=c(2,1))  #plotting the two images
+plot(en01, col=cl)
+plot(en13, col=cl)
