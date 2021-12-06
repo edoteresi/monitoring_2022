@@ -65,3 +65,20 @@ plot(EN$EN_0001, col=cl)
 
 # rgb  #to compare different images in only one, we can use the plotRGB function with stack as input.
 plotRGB(EN, r=1, g=7, b=13, stretch="lin")
+
+
+DAY 2
+
+#HOW TO IMPORT THE DATA ALL TOGETHER!!     <- list.files + lapply()
+#LETS START
+
+setwd("C:/Users/Utente/Desktop/LAB/EN")
+library(raster)
+
+Rlist <- list.files(pattern="EN")  #create a list to later import all the data, assigning it to an object with <-   #pattern is the set of words common to all the data needed, they will be pick from the working directory i put
+
+raster_list <- lapply(Rlist, raster)
+
+
+
+
