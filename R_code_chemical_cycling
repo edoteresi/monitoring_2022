@@ -6,6 +6,9 @@ library(raster)
 
 # plot the NO2 values of January 29020 by the cl palette
 en01 <- raster("EN_0001.png")
+
+cl <- colorRampPalette(c('red','orange','yellow'))(100)
+
 plot(en01, col=cl)
 
 # Exercise: import the end of March NO2 and plot it
@@ -77,7 +80,12 @@ library(raster)
 
 Rlist <- list.files(pattern="EN")  #create a list to later import all the data, assigning it to an object with <-   #pattern is the set of words common to all the data needed, they will be pick from the working directory i put
 
-raster_list <- lapply(Rlist, raster)
+raster_list <- lapply(Rlist, raster)  #import all the data in the list
+
+EN_stack <- stack(raster_list)
+EN_stack
+
+cl <- colorRampPalette(c('red','orange','yellow'))(100)
 
 
 
