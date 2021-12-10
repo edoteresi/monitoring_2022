@@ -1,0 +1,13 @@
+setwd("C:/Users/Utente/Desktop/LAB/EN")
+library(raster)
+library(ggplot2)
+library(RStoolbox)
+
+#brick  #list the file available
+rlist <- list.files(pattern="defor")
+rlist
+#apply a function to a list
+list_rast <- lapply(rlist, brick)
+list_rast
+
+plot (list_rast[[1]])
