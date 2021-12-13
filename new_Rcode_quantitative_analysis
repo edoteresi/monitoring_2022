@@ -1,0 +1,8 @@
+library(raster)
+library(RStoolbox) # we will use this package to make the classification
+library(ggplot2) # we will use this package for the ggplot function
+library(gridExtra) # we will use this package for multiframe ggplot
+
+# setwd("C:/LAB/") # Windows
+
+
