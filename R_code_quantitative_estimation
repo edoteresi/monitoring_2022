@@ -1,4 +1,4 @@
-setwd("C:/Users/Utente/Desktop/LAB/EN")
+setwd("C:/Users/Utente/Desktop/LAB/")
 library(raster)
 library(ggplot2)
 library(RStoolbox)
