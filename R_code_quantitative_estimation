@@ -2,6 +2,7 @@ setwd("C:/Users/Utente/Desktop/LAB/EN")
 library(raster)
 library(ggplot2)
 library(RStoolbox)
+library(gridExtra)
 
 #brick  #list the file available
 rlist <- list.files(pattern="defor")
