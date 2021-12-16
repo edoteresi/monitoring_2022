@@ -1,8 +1,8 @@
 setwd("C:/Users/Utente/Desktop/LAB/")
 library(raster)
-library(ggplot2)
-library(RStoolbox)
-library(gridExtra)
+library(ggplot2)    # we will use this package for the ggplot function
+library(RStoolbox)  # we will use this package to make the classification
+library(gridExtra)  # we will use this package for multiframe ggplot
 
 #brick  #list the file available
 rlist <- list.files(pattern="defor")
@@ -12,3 +12,4 @@ list_rast <- lapply(rlist, brick)
 list_rast
 
 plot (list_rast[[1]])
+plot (list_rast[[2]])
