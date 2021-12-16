@@ -3,3 +3,8 @@ library(raster)
 library(ncdf4)
 
 snow20211214 <- raster("c_gls_SCE_202112140000_NHEMI_VIIRS_V1.0.1.nc")
+
+plot(snow20211214)
+
+cl <- colorRampPalette(c('yellow','orange','red'))(100) #set the colour palette that i want
+plot(snow20211214, col=cl)
