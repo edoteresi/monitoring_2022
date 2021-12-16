@@ -12,3 +12,12 @@ plot(snow20211214)
 cl <- colorRampPalette(c('yellow','orange','red'))(100) #set the colour palette that i want
 plot(snow20211214, col=cl)
 
+#use the ggplot function
+ggplot() + geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent))
+
+ggplot() + 
+geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent))
++ scale_fill_viridis()
+
+ggplot() + 
+geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent)) + scale_fill_cividis()
