@@ -20,4 +20,4 @@ geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent))
 + scale_fill_viridis()
 
 ggplot() + 
-geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent)) + scale_fill_cividis()
+geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent)) + scale_fill_viridis(options("cividis"))
