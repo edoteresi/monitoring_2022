@@ -21,3 +21,16 @@ geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent))
 
 ggplot() + 
 geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent)) + scale_fill_viridis(options("cividis"))
+
+
+#17-12
+
+#brick  #list the file available
+rlist <- list.files(pattern="SCE")
+rlist
+#apply a function to a list
+list_rast <- lapply(rlist, brick)
+list_rast
+
+snowstack <- stack(list_rast)
+snowstack
