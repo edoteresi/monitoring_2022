@@ -34,3 +34,8 @@ list_rast
 
 snowstack <- stack(list_rast)
 snowstack
+
+#rename the two files in order to organzize better them, ---> swinter, ssummer
+
+ssummer <- snowstack$X2021.04.14
+swinter <- snowstack$X2021.12.14
