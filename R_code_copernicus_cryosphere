@@ -12,7 +12,9 @@ plot(snow20211214)
 cl <- colorRampPalette(c('yellow','orange','red'))(100) #set the colour palette that i want
 plot(snow20211214, col=cl)
 
-#use the ggplot function
+#use the ggplot function to generate the image, with oter copernicus data we could generate other >
+#images and plot them together with the patchwork() function.
+
 ggplot() + geom_raster(snow20211214, mapping = aes(x =x, y=y, fill=Snow.Cover.Extent))
 
 ggplot() + 
@@ -37,7 +39,7 @@ list_rast
 snowstack <- stack(list_rast)
 snowstack
 
-#rename the two files in order to organzize better them, ---> swinter, ssummer
+##rename the two files in order to organzize better them, ---> swinter, ssummer
 
 ssummer <- snowstack$X2021.04.14
 swinter <- snowstack$X2021.12.14
@@ -66,9 +68,18 @@ p2 <- ggplot() +
 geom_raster(swinter, mapping = aes(x=x, y=y, fill=X2021.12.14)) +
 scale_fill_viridis(option="viridis") 
 
-p1+p2
+p1 / p2
+
+
+##didn't work>
+cl <- colorRampPalette(c('yellow','orange','red'))(100)
+p1 <- plot(ssummer, col=cl)
+p2 <- plot(swinter, col=cl)
+p1 / p2
+##didn't work<
 
 #how to zoom a specific region
-
-
-
+# crop the stack to the extent of Italy
+ext <- c(0, 20, 30, 50)
+ssummer_cropped <- crop(ssummer, ext)
+swinter_cropped <- crop(swinter, ext)
