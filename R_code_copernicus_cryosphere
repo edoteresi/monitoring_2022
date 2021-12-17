@@ -32,6 +32,8 @@ rlist
 list_rast <- lapply(rlist, brick)
 list_rast
 
+
+
 snowstack <- stack(list_rast)
 snowstack
 
@@ -39,3 +41,10 @@ snowstack
 
 ssummer <- snowstack$X2021.04.14
 swinter <- snowstack$X2021.12.14
+
+
+ggplot() +
+geom_raster(ssummer, mapping = aes(x=x, y=y, fill=X2021.04.14)) +
+scale_fill_viridis(option="viridis") 
+
+ggplot() + geom_raster(swinter, mapping = aes(x =x, y=y, fill=X2021.12.14))
