@@ -42,9 +42,33 @@ snowstack
 ssummer <- snowstack$X2021.04.14
 swinter <- snowstack$X2021.12.14
 
+#create the images:
 
+#summer
 ggplot() +
 geom_raster(ssummer, mapping = aes(x=x, y=y, fill=X2021.04.14)) +
 scale_fill_viridis(option="viridis") 
 
-ggplot() + geom_raster(swinter, mapping = aes(x =x, y=y, fill=X2021.12.14))
+#winter
+ggplot() +
+geom_raster(swinter, mapping = aes(x=x, y=y, fill=X2021.12.14)) +
+scale_fill_viridis(option="viridis") 
+
+
+#lets patchwork them togheter
+library(patchwork)
+
+p1 <- ggplot() +
+geom_raster(ssummer, mapping = aes(x=x, y=y, fill=X2021.04.14)) +
+scale_fill_viridis(option="viridis")
+
+p2 <- ggplot() +
+geom_raster(swinter, mapping = aes(x=x, y=y, fill=X2021.12.14)) +
+scale_fill_viridis(option="viridis") 
+
+p1+p2
+
+#how to zoom a specific region
+
+
+
