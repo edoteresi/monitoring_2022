@@ -52,9 +52,7 @@ geom_raster(ssummer, mapping = aes(x=x, y=y, fill=X2021.04.14)) +
 scale_fill_viridis(option="viridis") 
 
 #winter
-ggplot() +
-geom_raster(swinter, mapping = aes(x=x, y=y, fill=X2021.12.14)) +
-scale_fill_viridis(option="viridis") 
+ggplot() + geom_raster(swinter, mapping = aes(x=x, y=y, fill=X2021.12.14)) + scale_fill_viridis(option="viridis") 
 
 
 #lets patchwork them togheter
