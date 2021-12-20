@@ -35,7 +35,6 @@ list_rast <- lapply(rlist, brick)
 list_rast
 
 
-
 snowstack <- stack(list_rast)
 snowstack
 
@@ -81,3 +80,52 @@ p1 / p2
 ext <- c(0, 20, 30, 50)
 ssummer_cropped <- crop(ssummer, ext)
 swinter_cropped <- crop(swinter, ext)
+
+
+#lets patch images of land surface temperature from 06-2006 and 06-2020
+#brick  #list the file available
+rlist <- list.files(pattern="LST")
+rlist
+#apply a function to a list
+list_raste <- lapply(rlist, brick)
+list_raste
+
+temmpstack <- stack(list_raste)
+temmpstack
+
+##rename the two files in order to organzize better them, ---> swinter, ssummer
+
+temp2011 <- temmpstack$X2011.04.12
+temp2020 <- temmpstack$X2020.06.30
+
+
+p1 <-ggplot() + 
+geom_raster(temp2020, mapping = aes(x=x, y=y, fill=X2020.06.30)) +
+scale_fill_viridis(option="viridis") 
+
+
+p2 <- ggplot() +
+geom_raster(temp2011, mapping = aes(x=x, y=y, fill=X2011.04.12)) +
+scale_fill_viridis(option="viridis")  
+
+#how to zoom a specific region
+# crop the stack to the extent of Italy
+ext <- c(0, 20, 30, 50)
+s2011_cropped <- crop(temp2011, ext)
+s2020_cropped <- crop(temp2020, ext)
+
+p4 <-ggplot() + 
+geom_raster(s2020_cropped, mapping = aes(x=x, y=y, fill=X2020.06.30)) +
+scale_fill_viridis(option="viridis") 
+
+
+p3 <- ggplot() +
+geom_raster(s2011_cropped, mapping = aes(x=x, y=y, fill=X2011.04.12)) +
+scale_fill_viridis(option="viridis") 
+
+
+
+
+
+
+
