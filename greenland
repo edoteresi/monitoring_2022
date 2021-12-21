@@ -1,0 +1,34 @@
+# Time series analysis
+# Greenland increase of temperature
+# Data and code from Emanuela Cosma
+
+install.packages("rasterVis")
+library(raster)
+library(rasterVis) 
+library(patchwork)
+library(rgdal)
+library(ggplot)
+library(patchwork)
+
+setwd("C:/Users/Utente/Desktop/LAB/greenland/")
+
+rlist <- list.files(pattern="lst")
+import <- lapply(rlist,raster)
+
+tgr <- stack(import)
+tgr
+
+cl <- colorRampPalette(c("blue","light blue","pink","red"))(100)
+
+
+plot(tgr, col=cl)
+
+#use ggplot
+p1 <- ggplot() + 
+geom_raster(TGr$lst_2000, mapping = aes(x=x, y=y, fill=lst_2000)) +
+scale_fill_viridis(option="magma") 
+# ggtitle("cividis palette")
+
+p2 <- ggplot() + 
+geom_raster(TGr$lst_2015, mapping = aes(x=x, y=y, fill=lst_2015)) +
+scale_fill_viridis(option="magma") 
