@@ -34,3 +34,12 @@ scale_fill_viridis(option="magma")
 p2 <- ggplot() + 
 geom_raster(tgr$lst_2015, mapping = aes(x=x, y=y, fill=lst_2015)) +
 scale_fill_viridis(option="magma") 
+
+p1/p2
+
+#statistics on greenland data
+
+plot(tgr$lst_2000, tgr$lst_2015)
+abline(0,1,col="red")
+
+pairs(tgr)  #easier and faster way to built statistical graphs and data.
