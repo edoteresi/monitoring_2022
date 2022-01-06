@@ -20,10 +20,15 @@ import <- lapply(rlist,raster)
 tgr <- stack(import)
 tgr
 
+plot(TGr)
+
+#levelplot(TGr)
 cl <- colorRampPalette(c("blue","light blue","pink","red"))(100)
+plot(TGr, col=cl)
 
+plot(TGr,col=cl, names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
 
-plot(tgr, col=cl)
+plot(TGr,col.regions=cl, main="LST variation in time", names.attr=c("July 2000","July 2005", "July 2010", "July 2015")) #MAIN is the name above the graph
 
 #use ggplot
 p1 <- ggplot() + 
