@@ -26,3 +26,29 @@ presences <- species[species$Occurrence == 1,]
 
 absences <- species[species$Occurrence == 0,]
 
+plot(presences, pch=19, col="blue")
+points(absences, pch=19, col="red")
+
+path <- system.file("external", package="sdm"
+lst <- list.files(path, pattern='asc')
+
+lst <- list.files(path, pattern='asc', full.names=T)
+
+cl <- colorRampPalette(c('blue','orange','red','yellow')) (100)
+plot(preds, col=cl)
+
+
+plot(preds$elevation, col=cl)
+
+points(presences, pch=19)
+
+
+plot(preds$temperature, col=cl)
+
+points(presences, pch=19)
+
+plot(preds$vegetation, col=cl)
+
+points(presences, pch=19)
+
+
