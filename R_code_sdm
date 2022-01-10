@@ -1,0 +1,28 @@
+library(sdm)
+library(raster) # predictors
+library(rgdal)  #species
+
+file <- system.file("external/species.shp", package="sdm") 
+species <- shapefile(file)
+
+# looking at the set
+species
+
+# plot
+plot(species)
+
+# looking at the occurrences
+species$Occurrence
+
+# copy and then write:
+plot(species[species$Occurrence == 1,],col='blue',pch=16)
+points(species[species$Occurrence == 0,],col='red',pch=16)
+
+
+species[species$Occurrence == 1,] #to count the exact number of presences
+
+#how to subset things
+presences <- species[species$Occurrence == 1,]
+
+absences <- species[species$Occurrence == 0,]
+
