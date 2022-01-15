@@ -1,11 +1,16 @@
-
 library(raster)
-library(rasterVis) 
-library(patchwork)
-library(rgdal)
+library(ncdf4)
 library(ggplot2)
-library(patchwork)
-library(RStoolbox)  
-library(gridExtra)
+library(viridis)
 
-setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/")
+setwd("C:/Users/Utente/Desktop/LAB/copernicus/")
+
+
+rlist <- list.files(pattern="LST")
+import <- lapply(rlist,brick) #apply a function over a list
+
+tgr <- stack(import)
+
+# crop the stack to the extent of Sicily
+ext <- c(11, 16, 35, 40)
+s2011_cropped <- crop(tgr, ext) #forse con lapply
