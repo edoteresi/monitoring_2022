@@ -14,3 +14,6 @@ tgr <- stack(import)
 # crop the stack to the extent of Sicily
 ext <- c(11, 16, 35, 40)
 lst_08_2021cropped <- crop(tgr, ext) 
+
+cl <- colorRampPalette(c('yellow','orange','red','dark red'))(100) 
+plot(lst_08_2021cropped, col=cl)
