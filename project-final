@@ -19,3 +19,38 @@ cl <- colorRampPalette(c('yellow','orange','red','dark red'))(100)
 plot(lst_08_2021cropped, col=cl) #no i finally have a comparation between 1-11,11-21,21-31 of august in 2020 and 2021, lets find more data.
 
 hist(lst_08_2021cropped)
+
+
+
+
+#lets try with monthly Nasa data
+#hdf fomato so i have to traduce them to import them on R
+# If you have lots of files then you can make a loop to do all this for you
+
+setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/2020/")
+library(gdalUtils)
+
+files <- dir(pattern = ".hdf")
+files
+
+
+filename <- substr(files,11,14)
+filename <- paste0("NPP", filename, ".tif")
+filename
+
+i <- 1
+
+for (i in 1:5){
+  sds <- get_subdatasets(files[i])
+  gdal_translate(sds[1], dst_dataset = filename[i])
+}
+
+remove(list=ls()) 
+
+library(tiff)
+
+library(raster)
+
+str_name<-'NPP0002.tif' 
+
+read_file<-readTIFF(str_name)
