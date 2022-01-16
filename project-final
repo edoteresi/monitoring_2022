@@ -45,12 +45,4 @@ for (i in 1:5){
   gdal_translate(sds[1], dst_dataset = filename[i])
 }
 
-remove(list=ls()) 
-
-library(tiff)
-
-library(raster)
-
-str_name<-'NPP0002.tif' 
-
-read_file<-readTIFF(str_name)
+readTIFF(NPP0152.tif, native = FALSE, all = FALSE, convert = FALSE, info = FALSE, indexed = FALSE, as.is = FALSE, payload = TRUE)
