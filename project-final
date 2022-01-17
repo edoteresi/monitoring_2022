@@ -13,7 +13,7 @@ tgr <- stack(import)
 
 # crop the stack to the extent of Sicily
 ext <- c(11, 16, 35, 40)
-lst_08_2021cropped <- crop(tgr, ext) 
+lst08_cropped <- crop(tgr, ext) 
 
 cl <- colorRampPalette(c('yellow','orange','red','dark red'))(100) 
 plot(lst_08_2021cropped, col=cl) #no i finally have a comparation between 1-11,11-21,21-31 of august in 2020 and 2021, lets find more data.
@@ -27,7 +27,7 @@ hist(lst_08_2021cropped)
 #hdf fomato so i have to traduce them to import them on R
 # If you have lots of files then you can make a loop to do all this for you
 
-setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/2020/")
+setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/new/")
 library(gdalUtils)
 
 files <- dir(pattern = ".hdf")
@@ -40,9 +40,42 @@ filename
 
 i <- 1
 
-for (i in 1:5){
+for (i in 1:6){
   sds <- get_subdatasets(files[i])
   gdal_translate(sds[1], dst_dataset = filename[i])
 }
 
-readTIFF(NPP0152.tif, native = FALSE, all = FALSE, convert = FALSE, info = FALSE, indexed = FALSE, as.is = FALSE, payload = TRUE)
+rast00 <- raster("NPP0002.tif")
+rast05 <- raster("NPP0052.tif")
+rast10 <- raster("NPP0102.tif")
+rast15 <- raster("NPP0152.tif")
+rast20 <- raster("NPP0202.tif")
+rast21 <- raster("NPP0212.tif")
+
+##lets crop them
+# crop the stack to the extent of Sicily
+ext <- c(11, 16, 35, 40)
+rastcropped00 <- crop(rast00, ext)
+rastcropped05 <- crop(rast05, ext)
+rastcropped10 <- crop(rast10, ext)
+rastcropped15 <- crop(rast15, ext)
+rastcropped20 <- crop(rast20, ext)
+rastcropped21 <- crop(rast21, ext)
+
+
+
+# multiframe
+par(mfrow=c(2,3)) # the first number is the number of rows in the multiframe, while the second one is the mnumber of columns
+ 
+# plot  with different colorRampPalette
+cl <- colorRampPalette(c('yellow','orange','red','green','blue'))(100)
+par(mfrow=c(2,3))
+plot(rastcropped00, col=cl)
+plot(rastcropped05, col=cl)
+plot(rastcropped10, col=cl)
+plot(rastcropped15, col=cl)
+plot(rastcropped20, col=cl)
+plot(rastcropped21, col=cl)
+
+
+
