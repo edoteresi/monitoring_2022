@@ -16,9 +16,9 @@ ext <- c(11, 16, 35, 40)
 lst08_cropped <- crop(tgr, ext) 
 
 cl <- colorRampPalette(c('yellow','orange','red','dark red'))(100) 
-plot(lst_08_2021cropped, col=cl) #no i finally have a comparation between 1-11,11-21,21-31 of august in 2020 and 2021, lets find more data.
+plot(lst08_cropped, col=cl) #no i finally have a comparation between 1-11,11-21,21-31 of august in 2020 and 2021, lets find more data.
 
-hist(lst_08_2021cropped)
+hist(lst08_cropped)
 
 
 
@@ -76,6 +76,17 @@ plot(rastcropped10, col=cl)
 plot(rastcropped15, col=cl)
 plot(rastcropped20, col=cl)
 plot(rastcropped21, col=cl)
+
+#plot the histograms hist
+par(mfrow=c(3,2))
+hist(rastcropped00)
+hist(rastcropped05) 
+hist(rastcropped10)
+hist(rastcropped15)
+hist(rastcropped20)
+hist(rastcropped21)
+
+
 
 
 
