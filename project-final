@@ -89,28 +89,71 @@ hist(rastcropped21)
 
 
 #lets do it with NDVI data from MODIS!!
+setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/ndvi_NASA_FILES/")
 
 
 filesdvi <- dir(pattern = "MOD")
 filesdvi
 
 
-filenamedvi <- substr(files,11,14)
-filenamedvi <- paste0("NPP", filename, ".tif")
+filenamedvi <- substr(filesdvi,10,13)
+filenamedvi <- paste0("NPP", filenamedvi, ".tif")
 filenamedvi
 
 i <- 1
 
-for (i in 1:6){  #number to change
-  sds <- get_subdatasets(files[i])
-  gdal_translate(sds[1], dst_dataset = filename[i])
+for (i in 1:10){  #number to change
+  sds <- get_subdatasets(filesdvi[i])
+  gdal_translate(sds[1], dst_dataset = filenamedvi[i])
 }
+
+##upload the .tif
+rast001 <- raster("NPP200020.tif")
+rast002 <- raster("NPP200022.tif")
+rast051 <- raster("NPP200520.tif")
+rast052 <- raster("NPP200522.tif")
+rast101 <- raster("NPP201020.tif")
+rast102 <- raster("NPP201022.tif")
+rast151 <- raster("NPP201520.tif")
+rast152 <- raster("NPP201522.tif")
+rast211 <- raster("NPP202120.tif")
+rast212 <- raster("NPP202122.tif")
+
+
+
 
 ##lets crop them
 # crop the stack to the extent of Sicily
 ext <- c(1000000, 1400000, 4000000, 4300000)
 
-#changenames
-rastcropped00 <- crop(rast00, ext)
-rastcropped05 <- crop(rast05, ext)
-rastcropped10 <- crop(rast10, ext)
+#changename
+rastcropped001 <- crop(rast001, ext)
+rastcropped002 <- crop(rast002, ext)
+rastcropped051 <- crop(rast051, ext)
+rastcropped052 <- crop(rast052, ext)
+rastcropped101 <- crop(rast101, ext)
+rastcropped102 <- crop(rast102, ext)
+rastcropped151 <- crop(rast151, ext)
+rastcropped152 <- crop(rast152, ext)
+rastcropped211 <- crop(rast211, ext)
+rastcropped212 <- crop(rast212, ext)
+
+#plot them
+
+cl <- colorRampPalette(c('yellow','orange','red','green','blue'))(100)
+par(mfrow=c(3,4))
+plot(rastcropped001, col=cl)
+plot(rastcropped002, col=cl)
+plot(rastcropped051, col=cl)
+plot(rastcropped052, col=cl)
+plot(rastcropped101, col=cl)
+plot(rastcropped102, col=cl)
+plot(rastcropped151, col=cl)
+plot(rastcropped152, col=cl)
+plot(rastcropped211, col=cl)
+plot(rastcropped212, col=cl)
+
+
+
+
+
