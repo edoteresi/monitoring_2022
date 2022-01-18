@@ -89,6 +89,8 @@ hist(rastcropped21)
 
 
 #lets do it with NDVI data from MODIS!!
+#make the stack after having uploaded everything, thus to male plots, histograms, scatterplots ecc ecc
+
 setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/ndvi_NASA_FILES/")
 
 
@@ -154,6 +156,48 @@ plot(rastcropped211, col=cl)
 plot(rastcropped212, col=cl)
 
 
+## now i have 1 LST data for each year,  2 NDVI data for each year, so now I have to make a big plot
 
+par(mfrow=c(10,4))
+cl <- colorRampPalette(c('yellow','orange','red','green','blue'))(100)
 
+plot(rastcropped00, col=cl)
+plot(0)
+plot(rastcropped001, col=cl)
+plot(rastcropped002, col=cl)
 
+plot(rastcropped05, col=cl)
+plot(0)
+plot(rastcropped051, col=cl)
+plot(rastcropped052, col=cl)
+
+plot(rastcropped10, col=cl)
+plot(0)
+plot(rastcropped101, col=cl)
+plot(rastcropped102, col=cl)
+
+plot(rastcropped15, col=cl)
+plot(0)
+plot(rastcropped151, col=cl)
+plot(rastcropped152, col=cl)
+
+plot(rastcropped21, col=cl)
+plot(0)
+plot(rastcropped211, col=cl)
+plot(rastcropped212, col=cl)
+
+#also temporal series with histograms of dvi images, higher values correspond to healthier vegetation
+par(mfrow=c(3,4))
+hist(rastcropped001)
+hist(rastcropped002)
+hist(rastcropped051)
+hist(rastcropped052)
+hist(rastcropped101)
+hist(rastcropped102)
+hist(rastcropped151)
+hist(rastcropped152)
+hist(rastcropped211)
+hist(rastcropped212)
+
+#make a stack
+EN <- stack(rastcropped001,rastcropped002,rastcropped051,rastcropped052,rastcropped101,rastcropped102,rastcropped151,rastcropped152,rastcropped211,rastcropped212)  #yessss
