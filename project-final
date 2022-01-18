@@ -88,5 +88,29 @@ hist(rastcropped21)
 
 
 
+#lets do it with NDVI data from MODIS!!
 
 
+filesdvi <- dir(pattern = "MOD")
+filesdvi
+
+
+filenamedvi <- substr(files,11,14)
+filenamedvi <- paste0("NPP", filename, ".tif")
+filenamedvi
+
+i <- 1
+
+for (i in 1:6){  #number to change
+  sds <- get_subdatasets(files[i])
+  gdal_translate(sds[1], dst_dataset = filename[i])
+}
+
+##lets crop them
+# crop the stack to the extent of Sicily
+ext <- c(1000000, 1400000, 4000000, 4300000)
+
+#changenames
+rastcropped00 <- crop(rast00, ext)
+rastcropped05 <- crop(rast05, ext)
+rastcropped10 <- crop(rast10, ext)
