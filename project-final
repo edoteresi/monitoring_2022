@@ -102,14 +102,21 @@ filenamedvi <- substr(filesdvi,10,15)
 filenamedvi <- paste0("NPP", filenamedvi, ".tif")
 filenamedvi
 
-i <- 1
-
+i <- 1 #sds to get the subdataset, we specify the subdataset [1] 
+#the we use gdal_translate to translate the hdf files into tif in the folder set as a directory
 for (i in 1:10){  #number to change
   sds <- get_subdatasets(filesdvi[i])
   gdal_translate(sds[1], dst_dataset = filenamedvi[i])
 }
 
+
 ##upload the .tif
+rlist <- list.files(pattern="NPP")
+rlist
+import <- lapply(rlist,raster) #apply a function over a list
+DVIstack <- stack(import)
+
+#alternative
 rast001 <- raster("NPP200020.tif")
 rast002 <- raster("NPP200022.tif")
 rast051 <- raster("NPP200520.tif")
@@ -127,7 +134,9 @@ rast212 <- raster("NPP202122.tif")
 ##lets crop them
 # crop the stack to the extent of Sicily
 ext <- c(1000000, 1400000, 4000000, 4300000)
+stackcrop <- crop(DVIstack, ext)
 
+#alternative
 #changename
 rastcropped001 <- crop(rast001, ext)
 rastcropped002 <- crop(rast002, ext)
@@ -190,7 +199,7 @@ plot(rastcropped212, col=cl)
 par(mfrow=c(3,4))
 hist(rastcropped001)
 hist(rastcropped002)
-hist(rastcropped051)
+hist(rastcropped051)  
 hist(rastcropped052)
 hist(rastcropped101)
 hist(rastcropped102)
