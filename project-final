@@ -98,7 +98,7 @@ filesdvi <- dir(pattern = "MOD")
 filesdvi
 
 
-filenamedvi <- substr(filesdvi,10,13)
+filenamedvi <- substr(filesdvi,10,15)
 filenamedvi <- paste0("NPP", filenamedvi, ".tif")
 filenamedvi
 
