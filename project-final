@@ -1,7 +1,5 @@
 library(raster)
-library(ncdf4)
-library(ggplot2)
-library(viridis)
+
 
 setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/")
 
@@ -24,26 +22,40 @@ hist(lst08_cropped)
 
 
 #lets try with monthly Nasa data
-#hdf fomato so i have to traduce them to import them on R
+#hdf format so i have to traduce them to import them on R
 # If you have lots of files then you can make a loop to do all this for you
 
-setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/new/")
+setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/lst_NASA_FILES/")
 library(gdalUtils)
+library(raster)
 
-files <- dir(pattern = ".hdf")
-files
+fileslst <- dir(pattern = ".hdf")
+fileslst
 
 
-filename <- substr(files,11,14)
-filename <- paste0("NPP", filename, ".tif")
-filename
+filenamelst <- substr(fileslst,10,13)
+filenamelst <- paste0("NPP", filenamelst, ".tif")
+filenamelst
 
 i <- 1
 
 for (i in 1:6){
-  sds <- get_subdatasets(files[i])
-  gdal_translate(sds[1], dst_dataset = filename[i])
+  sds <- get_subdatasets(fileslst[i])
+  gdal_translate(sds[1], dst_dataset = filenamelst[i])
 }
+
+#lets upload the tif files and then making a stack
+rlistlst <- list.files(pattern="NPP")
+rlistlst
+importlst <- lapply(rlistlst,raster) #apply a function over a list
+LSTstack <- stack(importlst)
+
+#lets crop the stack
+# crop the stack to the extent of Sicily
+ext <- c(11, 16, 35, 40)
+
+LSTstackcrop <- crop(LSTstack, ext)
+
 
 rast00 <- raster("NPP0002.tif")
 rast05 <- raster("NPP0052.tif")
@@ -134,7 +146,7 @@ rast212 <- raster("NPP202122.tif")
 ##lets crop them
 # crop the stack to the extent of Sicily
 ext <- c(1000000, 1400000, 4000000, 4300000)
-stackcrop <- crop(DVIstack, ext)
+LSTstackcrop <- crop(DVIstack, ext)
 
 #alternative
 #changename
