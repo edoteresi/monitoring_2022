@@ -55,6 +55,12 @@ LSTstack <- stack(importlst)
 ext <- c(11, 16, 35, 40)
 
 LSTstackcrop <- crop(LSTstack, ext)
+  #OUTPUTS
+cl <- colorRampPalette(c('orange','red','green','blue'))(100)
+plot(LSTstackcrop, col=cl)
+pairs(LSTstackcrop)
+
+
 
 
 rast00 <- raster("NPP0002.tif")
@@ -146,7 +152,15 @@ rast212 <- raster("NPP202122.tif")
 ##lets crop them
 # crop the stack to the extent of Sicily
 ext <- c(1000000, 1400000, 4000000, 4300000)
-LSTstackcrop <- crop(DVIstack, ext)
+DVIstackcrop <- crop(DVIstack, ext)
+
+                        
+                        #OUTPUTS
+cl <- colorRampPalette(c('orange','red','green','blue'))(100)
+plot(DVIstackcrop, col=cl)
+pairs(DVIstackcrop)
+
+
 
 #alternative
 #changename
@@ -180,7 +194,7 @@ plot(rastcropped212, col=cl)
 ## now i have 1 LST data for each year,  2 NDVI data for each year, so now I have to make a big plot
 
 par(mfrow=c(10,4))
-cl <- colorRampPalette(c('yellow','orange','red','green','blue'))(100)
+cl <- colorRampPalette(c('orange','red','green','blue'))(100)
 
 plot(rastcropped00, col=cl)
 plot(0)
