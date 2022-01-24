@@ -113,11 +113,11 @@ NDVIstack_aggregated <- aggregate(DVIstackcrop, 22.4)
 # adjust the time series, merging the couples of 16-days files into monthly files
 #function merge(x, y)
 
-NDVI_08_2000 <- merge(DVIstack_aggregated$NPP200020, DVIstack_aggregated$NPP200022)
-NDVI_08_2005 <- merge(DVIstack_aggregated$NPP200520, DVIstack_aggregated$NPP200522)
-NDVI_08_2010 <- merge(DVIstack_aggregated$NPP201020, DVIstack_aggregated$NPP201022)
-NDVI_08_2015 <- merge(DVIstack_aggregated$NPP201520, DVIstack_aggregated$NPP201522)
-NDVI_08_2021 <- merge(DVIstack_aggregated$NPP202120, DVIstack_aggregated$NPP202122)
+NDVI_08_2000 <- merge(NDVIstack_aggregated$NPP200020, NDVIstack_aggregated$NPP200022)
+NDVI_08_2005 <- merge(NDVIstack_aggregated$NPP200520, NDVIstack_aggregated$NPP200522)
+NDVI_08_2010 <- merge(NDVIstack_aggregated$NPP201020, NDVIstack_aggregated$NPP201022)
+NDVI_08_2015 <- merge(NDVIstack_aggregated$NPP201520, NDVIstack_aggregated$NPP201522)
+NDVI_08_2021 <- merge(NDVIstack_aggregated$NPP202120, NDVIstack_aggregated$NPP202122)
 
 #make the stack with the merged files
 
