@@ -55,13 +55,12 @@ LSTstack <- stack(importlst)
 ext <- c(11, 16, 35, 40)
 LSTstackcrop <- crop(LSTstack, ext)
 
-#then i have to adapt the resolution of LST (250m) to that one of the NDVI (5600) with che aggregate function of the raster package
-LSTstack_aggregated <- aggregate(LSTstackcrop, 22.4)
+
 
 #OUTPUTS
 cl <- colorRampPalette(c('orange','red','green','blue'))(100)
-plot(LSTstack_aggregated, col=cl)
-pairs(LSTstack_aggregated)
+plot(LSTstackcrop, col=cl)
+pairs(LSTstackcrop)
 
               ##   FINISHED   ##
 
@@ -106,14 +105,19 @@ DVIstack <- stack(import)
 ext <- c(1000000, 1400000, 4000000, 4300000)
 DVIstackcrop <- crop(DVIstack, ext)
 
+
+#now i have to adapt the resolution of the NDVI (5600m) to that one of the LST (250)
+NDVIstack_aggregated <- aggregate(DVIstackcrop, 22.4)
+
+
 # adjust the time series, merging the couples of 16-days files into monthly files
 #function merge(x, y)
 
-NDVI_08_2000 <- merge(DVIstackcrop$NPP200020, DVIstackcrop$NPP200022)
-NDVI_08_2005 <- merge(DVIstackcrop$NPP200520, DVIstackcrop$NPP200522)
-NDVI_08_2010 <- merge(DVIstackcrop$NPP201020, DVIstackcrop$NPP201022)
-NDVI_08_2015 <- merge(DVIstackcrop$NPP201520, DVIstackcrop$NPP201522)
-NDVI_08_2021 <- merge(DVIstackcrop$NPP202120, DVIstackcrop$NPP202122)
+NDVI_08_2000 <- merge(DVIstack_aggregated$NPP200020, DVIstack_aggregated$NPP200022)
+NDVI_08_2005 <- merge(DVIstack_aggregated$NPP200520, DVIstack_aggregated$NPP200522)
+NDVI_08_2010 <- merge(DVIstack_aggregated$NPP201020, DVIstack_aggregated$NPP201022)
+NDVI_08_2015 <- merge(DVIstack_aggregated$NPP201520, DVIstack_aggregated$NPP201522)
+NDVI_08_2021 <- merge(DVIstack_aggregated$NPP202120, DVIstack_aggregated$NPP202122)
 
 #make the stack with the merged files
 
