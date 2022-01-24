@@ -53,56 +53,22 @@ LSTstack <- stack(importlst)
 #lets crop the stack
 # crop the stack to the extent of Sicily
 ext <- c(11, 16, 35, 40)
-
 LSTstackcrop <- crop(LSTstack, ext)
-  #OUTPUTS
+
+#then i have to adapt the resolution of LST (250m) to that one of the NDVI (5600) with che aggregate function of the raster package
+LSTstack_aggregated <- aggregate(LSTstackcrop, 22.4)
+
+#OUTPUTS
 cl <- colorRampPalette(c('orange','red','green','blue'))(100)
-plot(LSTstackcrop, col=cl)
-pairs(LSTstackcrop)
+plot(LSTstack_aggregated, col=cl)
+pairs(LSTstack_aggregated)
+
+              ##   FINISHED   ##
 
 
 
 
-rast00 <- raster("NPP0002.tif")
-rast05 <- raster("NPP0052.tif")
-rast10 <- raster("NPP0102.tif")
-rast15 <- raster("NPP0152.tif")
-rast20 <- raster("NPP0202.tif")
-rast21 <- raster("NPP0212.tif")
 
-##lets crop them
-# crop the stack to the extent of Sicily
-ext <- c(11, 16, 35, 40)
-rastcropped00 <- crop(rast00, ext)
-rastcropped05 <- crop(rast05, ext)
-rastcropped10 <- crop(rast10, ext)
-rastcropped15 <- crop(rast15, ext)
-rastcropped20 <- crop(rast20, ext)
-rastcropped21 <- crop(rast21, ext)
-
-
-
-# multiframe
-par(mfrow=c(2,3)) # the first number is the number of rows in the multiframe, while the second one is the mnumber of columns
- 
-# plot  with different colorRampPalette
-cl <- colorRampPalette(c('yellow','orange','red','green','blue'))(100)
-par(mfrow=c(2,3))
-plot(rastcropped00, col=cl)
-plot(rastcropped05, col=cl)
-plot(rastcropped10, col=cl)
-plot(rastcropped15, col=cl)
-plot(rastcropped20, col=cl)
-plot(rastcropped21, col=cl)
-
-#plot the histograms hist
-par(mfrow=c(3,2))
-hist(rastcropped00)
-hist(rastcropped05) 
-hist(rastcropped10)
-hist(rastcropped15)
-hist(rastcropped20)
-hist(rastcropped21)
 
 
 
@@ -134,31 +100,31 @@ rlist
 import <- lapply(rlist,raster) #apply a function over a list
 DVIstack <- stack(import)
 
-#alternative
-rast001 <- raster("NPP200020.tif")
-rast002 <- raster("NPP200022.tif")
-rast051 <- raster("NPP200520.tif")
-rast052 <- raster("NPP200522.tif")
-rast101 <- raster("NPP201020.tif")
-rast102 <- raster("NPP201022.tif")
-rast151 <- raster("NPP201520.tif")
-rast152 <- raster("NPP201522.tif")
-rast211 <- raster("NPP202120.tif")
-rast212 <- raster("NPP202122.tif")
-
-
-
 
 ##lets crop them
 # crop the stack to the extent of Sicily
 ext <- c(1000000, 1400000, 4000000, 4300000)
 DVIstackcrop <- crop(DVIstack, ext)
 
+# adjust the time series, merging the couples of 16-days files into monthly files
+#function merge(x, y)
+
+NDVI_08_2000 <- merge(DVIstackcrop$NPP200020, DVIstackcrop$NPP200022)
+NDVI_08_2005 <- merge(DVIstackcrop$NPP200520, DVIstackcrop$NPP200522)
+NDVI_08_2010 <- merge(DVIstackcrop$NPP201020, DVIstackcrop$NPP201022)
+NDVI_08_2015 <- merge(DVIstackcrop$NPP201520, DVIstackcrop$NPP201522)
+NDVI_08_2021 <- merge(DVIstackcrop$NPP202120, DVIstackcrop$NPP202122)
+
+#make the stack with the merged files
+
+NDVI_stackmerged <- stack(NDVI_08_2000, NDVI_08_2005, NDVI_08_2010, NDVI_08_2015, NDVI_08_2021)
+
                         
                         #OUTPUTS
 cl <- colorRampPalette(c('orange','red','green','blue'))(100)
-plot(DVIstackcrop, col=cl)
-pairs(DVIstackcrop)
+plot(NDVI_stackmerged, col=cl)
+pairs(NDVI_stackmerged)
+hist(NDVI_stackmerged)
 
 
 
