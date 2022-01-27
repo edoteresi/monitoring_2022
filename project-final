@@ -134,6 +134,8 @@ hist(NDVI_stackmerged)
 #ggplot to plot the staack with the same color bar  NDVI AND LST, 
 #i have to set the right color rampp, better from viridis package
 
+library(rasterVis)
+
 gplot(NDVI_stackmerged) + 
   geom_tile(aes(fill = value)) +
   facet_wrap(~ variable) +
