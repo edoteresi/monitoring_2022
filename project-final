@@ -1,28 +1,5 @@
-library(raster)
-
-
-setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/")
-
-
-rlist <- list.files(pattern="LST")
-import <- lapply(rlist,raster) #apply a function over a list
-
-tgr <- stack(import)
-
-# crop the stack to the extent of Sicily
-ext <- c(11, 16, 35, 40)
-lst08_cropped <- crop(tgr, ext) 
-
-cl <- colorRampPalette(c('yellow','orange','red','dark red'))(100) 
-plot(lst08_cropped, col=cl) #no i finally have a comparation between 1-11,11-21,21-31 of august in 2020 and 2021, lets find more data.
-
-hist(lst08_cropped)
-
-
-
-
 #lets try with monthly Nasa data
-#hdf format so i have to traduce them to import them on R
+#.hdf format so i have to traduce them to .tif import them on R
 # If you have lots of files then you can make a loop to do all this for you
 
 setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/lst_NASA_FILES/")
@@ -40,14 +17,14 @@ filenamelst
 i <- 1
 
 for (i in 1:6){
-  sds <- get_subdatasets(fileslst[i])
-  gdal_translate(sds[1], dst_dataset = filenamelst[i])
+  sds <- get_subdatasets(fileslst[i])                  
+  gdal_translate(sds[1], dst_dataset = filenamelst[i])  #dstt_dataset = Character. The destination file name.
 }
 
 #lets upload the tif files and then making a stack
 rlistlst <- list.files(pattern="NPP")
 rlistlst
-importlst <- lapply(rlistlst,raster) #apply a function over a list
+importlst <- lapply(rlistlst,raster) #apply a function over a list # raster function to create a RasterLayer object
 LSTstack <- stack(importlst)
 
 #lets crop the stack
@@ -60,7 +37,7 @@ LSTstackcrop <- crop(LSTstack, ext)
 #OUTPUTS
 cl <- colorRampPalette(c('orange','red','green','blue'))(100)
 plot(LSTstackcrop, col=cl)
-pairs(LSTstackcrop)
+pairs(LSTstackcrop)   #problem because thus the values of the colorbar differ for each element. so ggplot.
 
               ##   FINISHED   ##
 
@@ -71,8 +48,8 @@ pairs(LSTstackcrop)
 
 
 
-#lets do it with NDVI data from MODIS!!
-#make the stack after having uploaded everything, thus to male plots, histograms, scatterplots ecc ecc
+#lets do it with NDVI data from MODIS (terra)!!
+#make the stack after having uploaded everything, thus to make plots, histograms, scatterplots ecc ecc
 
 setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/ndvi_NASA_FILES/")
 
@@ -85,8 +62,10 @@ filenamedvi <- substr(filesdvi,10,15)
 filenamedvi <- paste0("NPP", filenamedvi, ".tif")
 filenamedvi
 
-i <- 1 #sds to get the subdataset, we specify the subdataset [1] 
-#the we use gdal_translate to translate the hdf files into tif in the folder set as a directory
+i <- 1
+#sds to get the subdataset, we specify the subdataset [1] 
+#then we use gdal_translate to translate the hdf files into tif in the folder set as a directory
+
 for (i in 1:10){  #number to change
   sds <- get_subdatasets(filesdvi[i])
   gdal_translate(sds[1], dst_dataset = filenamedvi[i])
@@ -107,6 +86,7 @@ DVIstackcrop <- crop(DVIstack, ext)
 
 
 #now i have to adapt the resolution of the NDVI (5600m) to that one of the LST (250)
+
 NDVIstack_aggregated <- aggregate(DVIstackcrop, 22.4)
 
 
@@ -131,7 +111,7 @@ pairs(NDVI_stackmerged)
 hist(NDVI_stackmerged)
 
 
-#ggplot to plot the staack with the same color bar  NDVI AND LST, 
+#ggplot to plot the stack with the same color bar  NDVI AND LST, 
 #i have to set the right color rampp, better from viridis package
 
 library(rasterVis)
@@ -166,80 +146,3 @@ gplot(NDVI_stackmerged) +
    
   
   
-
-
-
-#alternative
-#changename
-rastcropped001 <- crop(rast001, ext)
-rastcropped002 <- crop(rast002, ext)
-rastcropped051 <- crop(rast051, ext)
-rastcropped052 <- crop(rast052, ext)
-rastcropped101 <- crop(rast101, ext)
-rastcropped102 <- crop(rast102, ext)
-rastcropped151 <- crop(rast151, ext)
-rastcropped152 <- crop(rast152, ext)
-rastcropped211 <- crop(rast211, ext)
-rastcropped212 <- crop(rast212, ext)
-
-#plot them
-
-cl <- colorRampPalette(c('yellow','orange','red','green','blue'))(100)
-par(mfrow=c(3,4))
-plot(rastcropped001, col=cl)
-plot(rastcropped002, col=cl)
-plot(rastcropped051, col=cl)
-plot(rastcropped052, col=cl)
-plot(rastcropped101, col=cl)
-plot(rastcropped102, col=cl)
-plot(rastcropped151, col=cl)
-plot(rastcropped152, col=cl)
-plot(rastcropped211, col=cl)
-plot(rastcropped212, col=cl)
-
-
-## now i have 1 LST data for each year,  2 NDVI data for each year, so now I have to make a big plot
-
-par(mfrow=c(10,4))
-cl <- colorRampPalette(c('orange','red','green','blue'))(100)
-
-plot(rastcropped00, col=cl)
-plot(0)
-plot(rastcropped001, col=cl)
-plot(rastcropped002, col=cl)
-
-plot(rastcropped05, col=cl)
-plot(0)
-plot(rastcropped051, col=cl)
-plot(rastcropped052, col=cl)
-
-plot(rastcropped10, col=cl)
-plot(0)
-plot(rastcropped101, col=cl)
-plot(rastcropped102, col=cl)
-
-plot(rastcropped15, col=cl)
-plot(0)
-plot(rastcropped151, col=cl)
-plot(rastcropped152, col=cl)
-
-plot(rastcropped21, col=cl)
-plot(0)
-plot(rastcropped211, col=cl)
-plot(rastcropped212, col=cl)
-
-#also temporal series with histograms of dvi images, higher values correspond to healthier vegetation
-par(mfrow=c(3,4))
-hist(rastcropped001)
-hist(rastcropped002)
-hist(rastcropped051)  
-hist(rastcropped052)
-hist(rastcropped101)
-hist(rastcropped102)
-hist(rastcropped151)
-hist(rastcropped152)
-hist(rastcropped211)
-hist(rastcropped212)
-
-#make a stack
-EN <- stack(rastcropped001,rastcropped002,rastcropped051,rastcropped052,rastcropped101,rastcropped102,rastcropped151,rastcropped152,rastcropped211,rastcropped212)  #yessss
