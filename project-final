@@ -54,7 +54,7 @@ pairs(LSTstackcrop)   #problem because thus the values of the colorbar differ fo
 setwd("C:/Users/Utente/Desktop/LAB/PROJECT-FINAL/ndvi_NASA_FILES/")
 
 
-filesdvi <- dir(pattern = "MOD")
+filesdvi <- dir(pattern = ".hdf")
 filesdvi
 
 
