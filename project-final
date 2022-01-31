@@ -143,6 +143,8 @@ gplot(NDVI_stackmerged) +
   scale_fill_viridis(option="rocket") ++
   ggtitle("NDVI in Sicily on August 2000 2005 2010 2015 2021") +
   coord_equal()
+  
+
    
   
   
