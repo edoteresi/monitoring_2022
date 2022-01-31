@@ -145,6 +145,6 @@ gplot(NDVI_stackmerged) +
   coord_equal()
   
 
-   
+  
   
   
