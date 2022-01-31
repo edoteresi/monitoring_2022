@@ -16,7 +16,7 @@ filenamelst
 
 i <- 1
 
-for (i in 1:6){
+for (i in 1:5){
   sds <- get_subdatasets(fileslst[i])                  
   gdal_translate(sds[1], dst_dataset = filenamelst[i])  #dstt_dataset = Character. The destination file name.
 }
