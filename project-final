@@ -115,6 +115,7 @@ hist(NDVI_stackmerged)
 #i have to set the right color rampp, better from viridis package
 
 library(rasterVis)
+library(ggplot2)
 
 gplot(NDVI_stackmerged) + 
   geom_tile(aes(fill = value)) +
