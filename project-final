@@ -145,7 +145,7 @@ gplot(NDVI_stackmerged) +
   gplot(NDVI_stackmerged) + 
   geom_tile(aes(fill = value)) +
   facet_wrap(~ variable) +
-  scale_fill_viridis(option="rocket") ++
+  scale_fill_viridis(option="rocket") +
   ggtitle("NDVI in Sicily on August 2000 2005 2010 2015 2021") +
   coord_equal()
   
