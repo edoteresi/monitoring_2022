@@ -35,6 +35,8 @@ LSTstackcrop <- crop(LSTstack, ext)
 
 
 
+
+
 #OUTPUTS
 cl <- colorRampPalette(c('orange','red','green','blue'))(100)
 plot(LSTstackcrop, col=cl)
