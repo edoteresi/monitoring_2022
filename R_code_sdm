@@ -1,54 +1,90 @@
-library(sdm)
-library(raster) # predictors
-library(rgdal)  #species
+# R code for species distribution modelling, namely the distribution of individuals of a population in space
 
-file <- system.file("external/species.shp", package="sdm") 
-species <- shapefile(file)
+# install.packages("sdm")
+# install.packages("rgdal")
 
-# looking at the set
-species
+library(sdm)#for developing species distribution models
+library(raster) #for work with raster file
+library(rgdal) #Provides bindings to the 'Geospatial' Data Abstraction Library
 
-# plot
-plot(species)
+#species data
+file <- system.file("external/species.shp", package="sdm") #call directly the file
+file #to see the path of the file
 
-# looking at the occurrences
-species$Occurrence
+#import data
+species <- shapefile(file) # as the raster function for raster files
+species #to see information of the object #like class, extent, values ecc ecc 
 
-# copy and then write:
-plot(species[species$Occurrence == 1,],col='blue',pch=16)
-points(species[species$Occurrence == 0,],col='red',pch=16)
+species$Occurrence #to see the occurrence (1 and 0 value)
+#how many occurrence are there? count all 1 value
+#equal to something "=="
+#different to something "!="
+#subset the data
+presences<-species[species$Occurrence==1,]
+absences<-species[species$Occurrence==0,]
 
+#plot the data
+plot(species, pch=19) #pch in r to choose the icon to view the data
 
-species[species$Occurrence == 1,] #to count the exact number of presences
+#plot the single subset
+plot(presences, pch=19, col="blue") 
+plot(absences, pch=19, col="red") 
 
-#how to subset things
-presences <- species[species$Occurrence == 1,]
+#do a single plot of the two subset
+#use points instead of plot for add the second subset
+plot(presences, pch=19, col="blue") 
+points(absences, pch=19, col="red") 
 
-absences <- species[species$Occurrence == 0,]
+#look at the predictors
+#first put the path
+path<-system.file("external",package="sdm") #all raster file
+path
 
-plot(presences, pch=19, col="blue")
-points(absences, pch=19, col="red")
-
-path <- system.file("external", package="sdm"
-lst <- list.files(path, pattern='asc')
-
-lst <- list.files(path, pattern='asc', full.names=T)
-
+lst<-list.files(path,pattern="asc", full.names=TRUE)#create a listfile in the folder
+#create the stack 
+preds<-stack(lst)
+#create the color palette 
 cl <- colorRampPalette(c('blue','orange','red','yellow')) (100)
-plot(preds, col=cl)
+#plot all the prediction
+plot(preds, col=cl) 
+
+plot(preds$elevation, col=cl) #plot only the elevation
+points(presences,pch=19) #add the presence data in the elevation images
+
+plot(preds$temperature, col=cl) #plot only the temperature
+points(presences,pch=19)
+
+plot(preds$vegetation, col=cl) #plot only the vegetation
+points(presences,pch=19)
+
+#day2
 
 
-plot(preds$elevation, col=cl)
+#importing the source script
+setwd("C:/lab/")
+#source() the file
+source("R_code_source_sdm.r")
 
-points(presences, pch=19)
+#call the stack create before
+preds
+#explain to the model what we training and predictors data
+datasdm<-sdmData(train=species, predictors=preds)
+#call the objects to see the table
+datasdm
+#create the model
+m1<-sdm(formula=Occurrence~temperature+elevation+precipitation+vegetation, data=datasdm,methods="glm")
+#create the prediction map 
+#make the function assign the model m1 and the data preds
+p1<-predict(m1, newdata=preds)
+p1 #raster layer
+#plot the final prediction
+plot(p1,col=cl)
+points(presences,pch=19)#put the precences on top of the images
 
-
-plot(preds$temperature, col=cl)
-
-points(presences, pch=19)
-
-plot(preds$vegetation, col=cl)
-
-points(presences, pch=19)
-
+#create the final stack of preds and the prediction map
+s1<-stack(preds,p1)
+#plot the stack so we have all together
+plot(s1, col=cl)
+#change the name of the maps
+names(s1)<-c("elevation","precipitaion","temperature","vegetation","model")
 
