@@ -119,6 +119,7 @@ hist(NDVI_stackmerged)
 
 library(rasterVis)
 library(ggplot2)
+library(viridis)
 
 gplot(NDVI_stackmerged) + 
   geom_tile(aes(fill = value)) +
